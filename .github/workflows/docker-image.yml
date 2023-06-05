@@ -29,7 +29,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3   
+    - uses: actions/checkout@v3
+    
+    - name: Download go Dependencies
+      run: |
+        go get google.golang.org/grpc
+        go get rsc.io/quote
+        
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.run_number }} --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
     
