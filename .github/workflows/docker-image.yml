@@ -44,7 +44,7 @@ jobs:
       # uses: sysdiglabs/scan-action@d244738066a84d4dcebfde64d5d48a01d88d5322
       uses: sysdiglabs/scan-action@v5
       with:
-        image-tag: docker://${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}
+        image-tag: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}
 
     - name: Log in to the Container registry
       run: docker login -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} ${{ env.REGISTRY }}
