@@ -43,6 +43,10 @@ jobs:
       uses: sysdiglabs/scan-action@v5
       with:
         image-tag: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}
+        sysdig-secure-url: ${{ env.SYSDIG_URL }}
+        sysdig-secure-token: ${{ secrets.SYSDIG_SECURE_TOKEN }}
+        stop-on-failed-policy-eval: ${{ env.BYPASS_SCAN_FAIL }}
+
 
     - name: Log in to the Container registry
       run: docker login -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} ${{ env.REGISTRY }}
