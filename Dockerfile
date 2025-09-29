@@ -18,7 +18,7 @@
 # Use the offical golang image to create a binary.
 # This is based on Debian and sets the GOPATH to /go.
 # https://hub.docker.com/_/golang
-FROM golang:1.19-buster as builder
+FROM golang:1.25.1-bookworm AS builder
 
 # Create and change to the app directory.
 WORKDIR /app
@@ -27,6 +27,8 @@ WORKDIR /app
 # This allows the container build to reuse cached dependencies.
 # Expecting to copy go.mod and if present go.sum.
 COPY go.* ./
+RUN go get google.golang.org/grpc
+RUN go get rsc.io/quote
 RUN go mod download
 
 # Copy local code to the container image.
@@ -38,7 +40,7 @@ RUN go build -v -o server
 # Use the official Debian slim image for a lean production container.
 # https://hub.docker.com/_/debian
 # https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
-FROM debian:buster-slim
+FROM debian:bookworm-slim
 RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     ca-certificates && \
     rm -rf /var/lib/apt/lists/*

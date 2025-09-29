@@ -23,8 +23,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"rsc.io/quote"
-	"google.golang.org/grpc"
 )
 
 func main() {
