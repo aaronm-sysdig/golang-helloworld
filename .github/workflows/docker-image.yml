@@ -20,7 +20,6 @@ env:
   SYSDIG_URL: https://app.au1.sysdig.com
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  BYPASS_SCAN_FAIL: false
 
 jobs:
 
@@ -45,7 +44,7 @@ jobs:
         image-tag: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}
         sysdig-secure-url: ${{ env.SYSDIG_URL }}
         sysdig-secure-token: ${{ secrets.SECURE_API_TOKEN }}
-        stop-on-failed-policy-eval: ${{ env.BYPASS_SCAN_FAIL }}
+        stop-on-failed-policy-eval: true
 
     - name: Log in to the Container registry
       run: docker login -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} ${{ env.REGISTRY }}
